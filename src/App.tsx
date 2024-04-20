@@ -1,16 +1,26 @@
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+
 function App() {
-    function handleLogin(): string {
-        return "HelloWorld";
-    }
+    // const login = useGoogleLogin({
+    //     onSuccess: (tokenResponse) => console.log(tokenResponse),
+    //     flow: 'implicit',
+    // });
 
     return (
         <>
-            <button
-                className="btn btn-secondary"
-                onClick={() => alert(handleLogin())}
-            >
+            {/* <button className="btn btn-secondary" onClick={() => login()}>
                 Google login
-            </button>
+            </button> */}
+            <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                    console.log(credentialResponse);
+                }}
+                onError={() => {
+                    console.log("Login Failed");
+                }}
+                type="icon"
+                shape="circle"
+            />
         </>
     );
 }
