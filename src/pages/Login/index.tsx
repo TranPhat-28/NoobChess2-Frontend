@@ -1,9 +1,14 @@
 import { FaChessKing, FaFacebookF } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
-import { useNavigate } from "react-router-dom";
+import QuickPlayModal from "../../components/QuickPlayModal";
 
 const LoginPage = () => {
-    const navigate = useNavigate();
+    const showQuickplayDialog = () => {
+        const modal = document.getElementById(
+            "quickPlayModal"
+        ) as HTMLDialogElement;
+        modal.showModal();
+    };
 
     return (
         <div className="custom-bg h-full w-full object-fill flex items-center justify-center p-6">
@@ -28,13 +33,15 @@ const LoginPage = () => {
 
                     <button
                         className="btn btn-primary h-20"
-                        onClick={() => navigate("/quickplay")}
+                        onClick={showQuickplayDialog}
                     >
                         <FaChessKing />
                         Play a quick game
                     </button>
                 </div>
             </div>
+
+            <QuickPlayModal />
         </div>
     );
 };
