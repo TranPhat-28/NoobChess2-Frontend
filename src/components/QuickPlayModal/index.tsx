@@ -8,12 +8,17 @@ const QuickPlayModal = () => {
             <div className="modal-box">
                 <h3 className="font-bold text-lg">YOU ARE NOT LOGGED IN</h3>
                 <p className="py-4">
-                    QuickPlay game will not be saved. Do you want to continue?
+                    QuickPlay game will NOT be saved. Do you want to continue?
                 </p>
                 <div className="modal-action">
                     <button
                         className="btn btn-primary"
-                        onClick={() => navigate("/quickplay")}
+                        onClick={() => {
+                            navigate("/quickplay");
+                            (document.getElementById(
+                                "quickPlayModal"
+                            ) as HTMLDialogElement).close();
+                        }}
                     >
                         Start
                     </button>
