@@ -1,9 +1,10 @@
 import { FaChessKing, FaFacebookF } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
-import { showQuickplayModal } from "../../utilities";
-import QuickPlayModal from "../../components/QuickPlayModal";
+import useGlobalModal from "../../hooks/GlobalModalHandler";
 
 const LoginPage = () => {
+    const { openGlobalModal } = useGlobalModal();
+
     return (
         <div className="custom-bg h-full w-full object-fill flex items-center justify-center p-6">
             <div className="bg-base-100 p-4 flex flex-col items-center rounded-lg w-full max-w-lg shadow-md">
@@ -27,15 +28,21 @@ const LoginPage = () => {
 
                     <button
                         className="btn btn-primary h-20"
-                        onClick={showQuickplayModal}
+                        onClick={() =>
+                            openGlobalModal({
+                                title: "You are not logged in",
+                                content:
+                                    "Quickplay progress will not be saved. Continue?",
+                                onConfirmNavigate: "/quickplay",
+                                showCancelButton: true,
+                            })
+                        }
                     >
                         <FaChessKing />
                         Play a quick game
                     </button>
                 </div>
             </div>
-
-            <QuickPlayModal />
         </div>
     );
 };

@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import globalModalDataReducer from "../redux/features/globalModalSlice";
+import globalModalReducer from "../redux/features/globalModalSlice";
+import quickplayReducer from "../redux/features/quickplaySlice";
 
 export const store = configureStore({
     reducer: {
-        // globalModalData: globalModalDataReducer,
+        globalModal: globalModalReducer,
+        quickplay: quickplayReducer,
     },
 });
 

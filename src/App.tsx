@@ -8,15 +8,17 @@ import QuickPlay from "./pages/QuickPlay";
 
 function App() {
     return (
-        <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/main">
-                <Route index element={<div>Lobby</div>} />
-                <Route path="social" element={<div>Social</div>} />
-            </Route>
-            <Route path="/quickplay" element={<QuickPlay />} />
-            <Route path="*" element={<div>Not found</div>} />
-        </Routes>
+        <>
+            <Routes>
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/main">
+                    <Route index element={<div>Lobby</div>} />
+                    <Route path="social" element={<div>Social</div>} />
+                </Route>
+                <Route path="/quickplay" element={<QuickPlay />} />
+                <Route path="*" element={<div>Not found</div>} />
+            </Routes>
+        </>
     );
 }
 
