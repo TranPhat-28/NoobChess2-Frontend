@@ -40,7 +40,7 @@ const QuickPlay = () => {
             .then((response) => {
                 if (response.data == "OK") {
                     // Close the loading modal
-                    hideLoading();
+                    // hideLoading();
                 }
             })
             .catch((e) => {

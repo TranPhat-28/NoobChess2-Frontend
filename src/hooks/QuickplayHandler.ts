@@ -1,12 +1,11 @@
 import axios from "axios";
 import { Chess, Square } from "chess.js";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { OptionSquares } from "../types";
-import { setHistory } from "../redux/features/quickplaySlice";
 import { PromotionPieceOption } from "react-chessboard/dist/chessboard/types";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { setHistory } from "../redux/features/quickplaySlice";
+import { OptionSquares } from "../types";
 import useGlobalModal from "./GlobalModalHandler";
 
 const useQuickplayHandler = () => {
@@ -21,8 +20,10 @@ const useQuickplayHandler = () => {
     );
 
     // Highlighting the squares
-    const [moveFrom, setMoveFrom] = useState("");
-    const [moveTo, setMoveTo] = useState(null);
+    // const [moveFrom, setMoveFrom] = useState("");
+    // const [moveTo, setMoveTo] = useState(null);
+    const [moveFrom, setMoveFrom] = useState<Square | "">("");
+    const [moveTo, setMoveTo] = useState<Square | null>(null);
 
     // Promotion dialog
     const [showPromotionDialog, setShowPromotionDialog] = useState(false);
@@ -153,7 +154,7 @@ const useQuickplayHandler = () => {
         }
     }
 
-    function onSquareClick(square) {
+    function onSquareClick(square: Square) {
         // from square
         if (!moveFrom) {
             const hasMoveOptions = getMoveOptions(square);
@@ -165,7 +166,7 @@ const useQuickplayHandler = () => {
         if (!moveTo) {
             // check if valid move before showing dialog
             const moves = game.moves({
-                moveFrom,
+                square: moveFrom,
                 verbose: true,
             });
             const foundMove = moves.find(
@@ -232,7 +233,7 @@ const useQuickplayHandler = () => {
 
     function onPromotionPieceSelect(piece?: PromotionPieceOption) {
         // if no piece passed then user has cancelled dialog, don't make move and reset
-        if (piece) {
+        if (piece && moveFrom && moveTo !== null) {
             const gameCopy = game;
             const move = gameCopy.move({
                 from: moveFrom,

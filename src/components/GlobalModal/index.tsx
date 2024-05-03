@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
-import { BeatLoader } from "react-spinners";
+import { RootState } from "../../redux/store";
 
 const GlobalModal = () => {
     const {
