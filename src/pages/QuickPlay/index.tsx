@@ -1,14 +1,14 @@
+import axios from "axios";
 import { useEffect, useMemo } from "react";
 import { Chessboard } from "react-chessboard";
 import { FaCircleInfo } from "react-icons/fa6";
 import { MdHistory } from "react-icons/md";
 import { useSelector } from "react-redux";
 import QuickPlayRandomAvatar from "../../components/QuickPlayRandomAvatar";
+import useGlobalModal from "../../hooks/GlobalModalHandler";
 import useQuickplayHandler from "../../hooks/QuickplayHandler";
 import { RootState } from "../../redux/store";
-import { RandomInRange, hideLoading, showLoading } from "../../utilities";
-import useGlobalModal from "../../hooks/GlobalModalHandler";
-import axios from "axios";
+import { RandomInRange, hideLoading } from "../../utilities";
 
 const QuickPlay = () => {
     // Generate a random seed for random avatar
