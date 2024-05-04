@@ -19,7 +19,7 @@ const GlobalModal = () => {
             <div className="modal-box">
                 <h3 className="font-bold text-lg">{title}</h3>
                 <p className="py-2">{content}</p>
-                {img && <img className="w-52 ml-auto mr-auto" src={img} />}
+                {img && <img className="w-64 ml-auto mr-auto" src={img} />}
 
                 <div className="modal-action">
                     <form method="dialog">
@@ -34,7 +34,7 @@ const GlobalModal = () => {
                             {confirmButton ? confirmButton : "OK"}
                         </button>
                         {showCancelButton === true && (
-                            <button className="btn ml-2">Close</button>
+                            <button className="btn ml-2">Cancel</button>
                         )}
                     </form>
                 </div>

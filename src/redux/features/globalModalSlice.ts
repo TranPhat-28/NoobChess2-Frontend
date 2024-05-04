@@ -24,7 +24,6 @@ export const globalModalSlice = createSlice({
         },
         resetModalState: (state) => {
             state.title = "Title";
-            state.content = "Content";
             state.showCancelButton = true;
         },
     },

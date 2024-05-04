@@ -4,7 +4,9 @@ import { useState } from "react";
 import { PromotionPieceOption } from "react-chessboard/dist/chessboard/types";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { setHistory } from "../redux/features/quickplaySlice";
+import {
+    setHistory
+} from "../redux/features/quickplaySlice";
 import { OptionSquares } from "../types";
 import useGlobalModal from "./GlobalModalHandler";
 
@@ -16,12 +18,14 @@ const useQuickplayHandler = () => {
 
     // The game
     const [game, setGame] = useState<Chess>(
-        new Chess("7k/8/6K1/8/8/8/8/R7 w - - 0 1")
+        // White move - Black win
+        // new Chess("7r/8/8/8/8/1k6/8/1K6 w - - 0 1")
+        // White move - White win
+        // new Chess("7k/8/6K1/8/8/8/8/R7 w - - 0 1")
+        new Chess()
     );
 
     // Highlighting the squares
-    // const [moveFrom, setMoveFrom] = useState("");
-    // const [moveTo, setMoveTo] = useState(null);
     const [moveFrom, setMoveFrom] = useState<Square | "">("");
     const [moveTo, setMoveTo] = useState<Square | null>(null);
 
@@ -29,6 +33,7 @@ const useQuickplayHandler = () => {
     const [showPromotionDialog, setShowPromotionDialog] = useState(false);
     const [optionSquares, setOptionSquares] = useState({});
 
+    // Get move options
     function getMoveOptions(square: Square) {
         const moves = game.moves({
             square,
@@ -58,6 +63,7 @@ const useQuickplayHandler = () => {
         return true;
     }
 
+    // Fetch Stockfish response
     async function fetchAiResponseMove() {
         try {
             const aiMoveResponse = await toast.promise(
@@ -73,9 +79,7 @@ const useQuickplayHandler = () => {
             // Some error happened
             if (!aiMoveResponse.data.isSuccess) {
                 openGlobalModal({
-                    title: "Error",
-                    content:
-                        "Oops! Something went wrong on the server and the game was interrupted.",
+                    title: "Oops! Something went wrong on the server!",
                     img: "/error.png",
                     confirmButton: "Home",
                     onConfirmNavigate: "/",
@@ -93,10 +97,6 @@ const useQuickplayHandler = () => {
                         to: aiMoveResponse.data.data.to,
                         promotion: aiMoveResponse.data.data.promotion,
                     });
-                    // setBlackHistory([
-                    //     ...blackHistory,
-                    //     `${move.from}${move.to}`,
-                    // ]);
                     dispatch(
                         setHistory({
                             side: "black",
@@ -106,8 +106,7 @@ const useQuickplayHandler = () => {
                 }
 
                 openGlobalModal({
-                    title: "Gameover",
-                    content: `${aiMoveResponse.data.data.wonSide} won with a ${aiMoveResponse.data.data.endgameType}`,
+                    title: `${aiMoveResponse.data.data.wonSide} won with a ${aiMoveResponse.data.data.endgameType}`,
                     img: `${
                         aiMoveResponse.data.data.wonSide === "White"
                             ? "victory.png"
@@ -125,7 +124,6 @@ const useQuickplayHandler = () => {
                     promotion: aiMoveResponse.data.data.promotion,
                 });
 
-                // setBlackHistory([...blackHistory, `${move.from}${move.to}`]);
                 dispatch(
                     setHistory({
                         side: "black",
@@ -139,12 +137,8 @@ const useQuickplayHandler = () => {
                 setOptionSquares({});
             }
         } catch (err) {
-            // console.log(err);
-            // toast.error("Something went wrong");
             openGlobalModal({
-                title: "Error",
-                content:
-                    "Oops! Something went wrong on the server and the game was interrupted.",
+                title: "Oops! Something went wrong on the server",
                 img: "/error.png",
                 confirmButton: "Home",
                 onConfirmNavigate: "/",
@@ -205,8 +199,6 @@ const useQuickplayHandler = () => {
                 promotion: "q",
             });
 
-            // console.log(`White ${move.from}${move.to}`)
-            // setWhiteHistory([...whiteHistory, `${move.from}${move.to}`]);
             dispatch(
                 setHistory({
                     side: "white",
