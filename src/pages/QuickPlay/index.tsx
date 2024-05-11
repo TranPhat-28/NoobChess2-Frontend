@@ -1,14 +1,13 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { Chessboard } from "react-chessboard";
-import { MdHistory } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import MoveHistory from "../../components/MoveHistory";
 import PlayerInfoCard from "../../components/PlayerInfoCard";
 import useGlobalModal from "../../hooks/GlobalModalHandler";
 import useQuickplayHandler from "../../hooks/QuickplayHandler";
-import { RootState } from "../../redux/store";
-import { hideLoading, showLoading } from "../../utilities";
 import { resetQuickplayData } from "../../redux/features/quickplaySlice";
+import { hideLoading, showLoading } from "../../utilities";
 
 const QuickPlay = () => {
     // Game handler
@@ -26,9 +25,6 @@ const QuickPlay = () => {
 
     // Modal handler
     const { openGlobalModal } = useGlobalModal();
-
-    // Game history
-    const history = useSelector((state: RootState) => state.quickplay.history);
 
     useEffect(() => {
         // Show the loading modal
@@ -83,14 +79,7 @@ const QuickPlay = () => {
                     />
                 </div>
                 <div className="w-full h-32 md:col-start-2 md:h-full flex flex-col gap-2">
-                    <div className="w-full flex-1 flex shadow-md p-2 bg-base-200 rounded-lg">
-                        <div className="flex-1">
-                            Last move: {history[history.length - 1]?.move}
-                        </div>
-                        <button className="btn btn-outline btn-ghost btn-square h-full">
-                            <MdHistory size={"20px"} />
-                        </button>
-                    </div>
+                    <MoveHistory />
                     <button
                         className="btn btn-primary w-full"
                         onClick={() =>

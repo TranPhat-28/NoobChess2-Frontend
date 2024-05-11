@@ -17,3 +17,9 @@
 .custom-bg {
     background-image: url('/background.svg');
 }
+
+@layer components {
+    .login-btn {
+        @apply border border-[#DADCE0] rounded-[4px] h-[40px] w-[40px] mt-[0.5px] flex justify-center items-center;
+    }
+}
