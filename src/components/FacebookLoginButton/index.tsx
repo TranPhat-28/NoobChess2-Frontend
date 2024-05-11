@@ -8,7 +8,7 @@ const FacebookLoginButton = () => {
 
     return (
         <FacebookLogin
-            appId="1371810450190886"
+            appId={import.meta.env.VITE_FACEBOOK_APP_ID}
             callback={facebookLogin}
             render={(renderProps) => (
                 <div onClick={renderProps.onClick}>
